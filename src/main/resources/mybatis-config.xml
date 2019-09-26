@@ -7,6 +7,13 @@
         <setting name="logImpl" value="LOG4J"/>        
     </settings>-->
     
+    <typeAliases>
+    	<typeAlias type='edu.eci.cvds.samples.entities.Cliente' alias='Cliente'/>
+    	<typeAlias type='edu.eci.cvds.samples.entities.Item' alias='Item'/>
+    	<typeAlias type='edu.eci.cvds.samples.entities.ItemRentado' alias='ItemRentado'/>
+    	<typeAlias type='edu.eci.cvds.samples.entities.TipoItem' alias='TipoItem'/>
+	</typeAliases>
+    
     <properties resource="config.properties">
     </properties>
     <typeAliases>
