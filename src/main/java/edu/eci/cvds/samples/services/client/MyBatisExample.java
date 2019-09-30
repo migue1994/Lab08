@@ -26,6 +26,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
+
 /**
  *
  * @author hcadavid
@@ -41,13 +43,16 @@ public class MyBatisExample {
     public static SqlSessionFactory getSqlSessionFactory() {
         SqlSessionFactory sqlSessionFactory = null;
         if (sqlSessionFactory == null) {
-            InputStream inputStream;
+            InputStream inputStream=null;
             try {
                 inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            } catch (IOException e) {
+                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);                
+            } 
+          
+            
+           catch (IOException e) {
                 throw new RuntimeException(e.getCause());
-            }
+           }
         }
         return sqlSessionFactory;
     }
@@ -58,14 +63,12 @@ public class MyBatisExample {
      * @throws SQLException 
      */
     public static void main(String args[]) throws SQLException {
-        SqlSessionFactory sessionfact = getSqlSessionFactory();
+    	SqlSessionFactory sessionfact = getSqlSessionFactory();
+    	SqlSession sqlss = sessionfact.openSession();
+    	ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+    	System.out.println(cm.consultarClientes());
+    	System.out.println(cm.consultarCliente(3418108));
 
-        SqlSession sqlss = sessionfact.openSession();
-
-        
-        //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
         
         
         

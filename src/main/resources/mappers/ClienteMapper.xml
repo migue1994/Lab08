@@ -5,6 +5,92 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
 
+	<select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
+			select
+    
+    		c.nombre,
+    		c.documento,
+    		c.telefono,
+    		c.direccion,
+    		c.email,
+    		c.vetado,
+    
+    		ir.id,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id,
+    		i.nombre,
+    		i.descripcion ,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id,
+    		ti.descripcion 
 
+    
+    		FROM VI_CLIENTES as c 
+    	
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+
+
+	</select>
+	
+	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
+    	select nombre, documento, telefono, direccion, email, vetado FROM VI_CLIENTES 
+        where documento = #{id_cliente}
+    </select>
+    
+    <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
+    	insert into VI_ITEMRENTADO (id,ITEMS_id,fechainiciorenta,fechafinrenta,CLIENTES_documento) 
+    	VALUES (#{id_itemRentado},#{id_item},#{fechainiciorenta},#{fechafinrenta}#{id_cliente})
+    </insert>
+	
+	<resultMap id="ClienteResult" type="Cliente">
+	
+			<id property="documento" column="documento"/>
+    		<result property="nombre" column="nombre"/>
+    		<result property="telefono" column="telefono"/>
+    		<result property="direccion" column="direccion"/>
+    		<result property="email" column="email"/>
+   			<result property="vetado" column="vetado"/>
+   			
+    </resultMap>
+    
+    <resultMap id="itemRentadoResult" type="ItemRentado">
+    
+    		<id property="id" column="id"/>
+    		<result property="fechainiciorenta" column="fechainiciorenta"/>
+    		<result property="fechafinrenta" column="fechafinrenta"/>
+   			<association property="CLIENTES_documento" javaType="Cliente" resultMap="ClienteResult"/>
+   			<association property="ITEMS_id" javaType="Item" resultMap="'edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.ItemResult"/>
+    </resultMap>
+
+    
           	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
