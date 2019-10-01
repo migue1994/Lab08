@@ -8,27 +8,27 @@
 	<select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
 			select
     
-    		c.nombre,
-    		c.documento,
+    		c.nombre as nombre_cliente ,
+    		c.documento as id_cliente,
     		c.telefono,
     		c.direccion,
     		c.email,
     		c.vetado,
     
-    		ir.id,
+    		ir.id as id_itemRentado,
     		ir.fechainiciorenta ,
     		ir.fechafinrenta ,
     
-    		i.id,
-    		i.nombre,
-    		i.descripcion ,
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
     		i.fechalanzamiento ,
     		i.tarifaxdia ,
     		i.formatorenta ,
     		i.genero ,     
     		   
-    		ti.id,
-    		ti.descripcion 
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
 
     
     		FROM VI_CLIENTES as c 
@@ -41,34 +41,36 @@
 	</select>
 	
 	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
-    	select nombre, documento, telefono, direccion, email, vetado FROM VI_CLIENTES 
-        where documento = #{id_cliente}
+    	select nombre as nombre_cliente, documento as id_cliente, telefono, direccion, email, vetado FROM VI_CLIENTES 
+        where documento= #{id_cliente}
     </select>
     
     <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
     	insert into VI_ITEMRENTADO (id,ITEMS_id,fechainiciorenta,fechafinrenta,CLIENTES_documento) 
     	VALUES (#{id_itemRentado},#{id_item},#{fechainiciorenta},#{fechafinrenta}#{id_cliente})
     </insert>
+
 	
 	<resultMap id="ClienteResult" type="Cliente">
 	
-			<id property="documento" column="documento"/>
-    		<result property="nombre" column="nombre"/>
+			<id property="documento" column="id_cliente"/>
+    		<result property="nombre" column="nombre_cliente"/>
     		<result property="telefono" column="telefono"/>
     		<result property="direccion" column="direccion"/>
     		<result property="email" column="email"/>
    			<result property="vetado" column="vetado"/>
+   			<collection property="rentados" javaType="ItemRentado" resultMap="itemRentadoResult" />   			
    			
     </resultMap>
     
     <resultMap id="itemRentadoResult" type="ItemRentado">
     
-    		<id property="id" column="id"/>
+    		<id property="id" column="id_itemRentado"/>
     		<result property="fechainiciorenta" column="fechainiciorenta"/>
     		<result property="fechafinrenta" column="fechafinrenta"/>
-   			<association property="CLIENTES_documento" javaType="Cliente" resultMap="ClienteResult"/>
-   			<association property="ITEMS_id" javaType="Item" resultMap="'edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.ItemResult"/>
+   			<association property="item" javaType="Item" column="ITEMS_id"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.itemResult"/>
     </resultMap>
+
 
     
           	

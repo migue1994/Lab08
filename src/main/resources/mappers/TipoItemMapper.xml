@@ -7,8 +7,8 @@
 
     <resultMap id="tipoItemResult" type="TipoItem">
     		
-    		<id property="id" column="id"/>
-    		<result property="descripcion" column="descripcion"/>
+    		<id property="id" column="id_tipoItem"/>
+    		<result property="descripcion" column="descripcion_tipoItem"/>
       		
     </resultMap>  
 
