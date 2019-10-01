@@ -50,6 +50,14 @@
     	VALUES (#{id_itemRentado},#{id_item},#{fechainiciorenta},#{fechafinrenta}#{id_cliente})
     </insert>
 
+	<resultMap id="itemRentadoResult" type="ItemRentado">
+    
+    		<id property="id" column="id_itemRentado"/>
+    		<result property="fechainiciorenta" column="fechainiciorenta"/>
+    		<result property="fechafinrenta" column="fechafinrenta"/>
+   			<association property="item" javaType="Item" column="ITEMS_id"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.itemResult"/>
+    </resultMap>
+
 	
 	<resultMap id="ClienteResult" type="Cliente">
 	
@@ -59,17 +67,11 @@
     		<result property="direccion" column="direccion"/>
     		<result property="email" column="email"/>
    			<result property="vetado" column="vetado"/>
-   			<collection property="rentados" javaType="ItemRentado" resultMap="itemRentadoResult" />   			
+   			<collection property="rentados" ofType="ItemRentado" column="id_cliente" resultMap="itemRentadoResult" />   			
    			
     </resultMap>
     
-    <resultMap id="itemRentadoResult" type="ItemRentado">
     
-    		<id property="id" column="id_itemRentado"/>
-    		<result property="fechainiciorenta" column="fechainiciorenta"/>
-    		<result property="fechafinrenta" column="fechafinrenta"/>
-   			<association property="item" javaType="Item" column="ITEMS_id"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.itemResult"/>
-    </resultMap>
 
 
     
