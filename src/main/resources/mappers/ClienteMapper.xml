@@ -41,14 +41,47 @@
 	</select>
 	
 	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
-    	select nombre as nombre_cliente, documento as id_cliente, telefono, direccion, email, vetado FROM VI_CLIENTES 
-        where documento= #{id_cliente}
+    	
+		SELECT
+    		c.nombre as nombre_cliente ,
+    		c.documento as id_cliente,
+    		c.telefono,
+    		c.direccion,
+    		c.email,
+    		c.vetado,
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    		FROM VI_CLIENTES as c 
+    	
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
+        	
+        	WHERE c.documento= #{id_cliente}
     </select>
     
+    
     <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
-    	insert into VI_ITEMRENTADO (id,ITEMS_id,fechainiciorenta,fechafinrenta,CLIENTES_documento) 
-    	VALUES (#{id_itemRentado},#{id_item},#{fechainiciorenta},#{fechafinrenta}#{id_cliente})
+    	insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) 
+    	VALUES (#{id_itemRentado},#{id_cliente},#{id_item},#{fechainiciorenta},#{fechafinrenta})
     </insert>
+
+
 
 	<resultMap id="itemRentadoResult" type="ItemRentado">
     
@@ -70,12 +103,7 @@
    			<collection property="rentados" ofType="ItemRentado" column="id_cliente" resultMap="itemRentadoResult" />   			
    			
     </resultMap>
-    
-    
 
-
-    
-          	
 </mapper>
 
 

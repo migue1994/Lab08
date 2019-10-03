@@ -4,6 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper">
+	
+
+	<select parameterType="map" id="consultarItems" resultMap="itemResult">
+	
+			select
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    		FROM VI_ITEMS as i left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+
+	</select>
+	
+	<select parameterType="map" id="consultarItem" resultMap="itemResult">
+    	
+		select
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    		FROM VI_ITEMS as i left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+    		
+    		WHERE i.id=#{id_item}
+    </select>
+    
+    
+    <insert id ="insertarItem">
+    	insert into VI_ITEMS (id,nombre,descripcion,fechalanzamiento,tarifaxdia,formatorenta,genero,TIPOITEM_id) 
+    	VALUES (#{item.id},#{item.nombre},#{item.descripcion},#{item.fechaLanzamiento},#{item.tarifaxDia}, #{item.formatoRenta},#{item.genero},#{item.tipo.id})
+    </insert>
+	
+	
 	<resultMap id="itemResult" type="Item">
 	
     		<id property="id" column="id_item"/>

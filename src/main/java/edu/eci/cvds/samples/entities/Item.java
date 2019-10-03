@@ -35,9 +35,6 @@ public class Item implements Serializable{
 
     public Item() {
     }
-
-    
-    
     
     public TipoItem getTipo() {
         return tipo;

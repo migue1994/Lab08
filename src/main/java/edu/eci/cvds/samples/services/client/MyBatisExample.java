@@ -21,12 +21,20 @@ package edu.eci.cvds.samples.services.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
+import edu.eci.cvds.samples.entities.Item;
+import edu.eci.cvds.samples.entities.TipoItem;
 
 /**
  *
@@ -65,12 +73,49 @@ public class MyBatisExample {
     public static void main(String args[]) throws SQLException {
     	SqlSessionFactory sessionfact = getSqlSessionFactory();
     	SqlSession sqlss = sessionfact.openSession();
+    	
+    	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateInicio = "1/10/2019";
+        String dateFin = "2/10/2019";
+        
+    	
     	ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
     	System.out.println(cm.consultarClientes());
+    	System.out.println(cm.consultarCliente(2107356));
+    	/*try {
+    		Date dateI = formatter.parse(dateInicio);
+    		Date dateF = formatter.parse(dateFin);
+    		cm.agregarItemRentadoACliente(1024, 2148825,5,dateI,dateF);
+    	}
+    	
+    	catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+    	
+    	ItemMapper itm=sqlss.getMapper(ItemMapper.class);
+    	System.out.println(itm.consultarItems());
+    	System.out.println(itm.consultarItem(7));
+    	
+    	/*try {
+    		Date dateL = formatter.parse(dateFin);
+    		long t=5000;
+    		TipoItem tmp=new TipoItem(2,"Accion");
+        	Item i=new Item(tmp,214,"Coleccion", "Coleccion de libros",dateL,5000,"Alquilado", "Todos" );
+        	itm.insertarItem(i);
+    	}
+    	
+    	catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+    	
+
+    	TipoItemMapper titm=sqlss.getMapper(TipoItemMapper.class);
+    	System.out.println(titm.getTiposItems());
+    	System.out.println(titm.getTipoItem(1));
+    	/*titm.addTipoItem("Peliculas");*/
 
         
-        
-        
+     
         sqlss.commit();
         
         
