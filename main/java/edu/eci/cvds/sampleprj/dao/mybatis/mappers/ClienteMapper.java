@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.Cliente;
+import edu.eci.cvds.samples.entities.ItemRentado;
 
 /**
  *
@@ -12,7 +13,7 @@ import edu.eci.cvds.samples.entities.Cliente;
  */
 public interface ClienteMapper {
     
-    public Cliente consultarCliente(@Param("id_cliente")int id); 
+    public Cliente consultarCliente(@Param("id_cliente")long id); 
     
     /**
      * Registrar un nuevo item rentado asociado al cliente identificado
@@ -31,5 +32,19 @@ public interface ClienteMapper {
      */
     public List<Cliente> consultarClientes();
     
+    /**
+     * Consultar los items rentados por un cliente
+     * @param idcliente
+     * @return
+     */
+    public List<ItemRentado> consultarItemsCliente(@Param("id_cliente") long idcliente);
+    
+    /**
+     * Actualiza el estado de vetado del cliente
+     * @param docu
+     * @param estado
+     */
+	public void actualizarClienteVetado(@Param("id_cliente")long docu, @Param("estado")boolean estado);
+
 }
 

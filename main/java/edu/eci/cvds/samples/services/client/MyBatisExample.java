@@ -80,8 +80,11 @@ public class MyBatisExample {
         
     	
     	ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
-    	System.out.println(cm.consultarClientes());
-    	System.out.println(cm.consultarCliente(2107356));
+    	//cm.actualizarClienteVetado(2148825, true);
+    	//System.out.println(cm.consultarItemsCliente(2148825));
+    
+    	/*System.out.println(cm.consultarClientes());
+    	System.out.println(cm.consultarCliente(2107356));*/
     	/*try {
     		Date dateI = formatter.parse(dateInicio);
     		Date dateF = formatter.parse(dateFin);
@@ -93,8 +96,12 @@ public class MyBatisExample {
         }*/
     	
     	ItemMapper itm=sqlss.getMapper(ItemMapper.class);
-    	System.out.println(itm.consultarItems());
-    	System.out.println(itm.consultarItem(7));
+    	//System.out.println(itm.consultarItemsDisponibles());
+    	//System.out.println(itm.consultarTipoItem(19));
+    	//itm.actualizarTarifa(19, 14785217);
+    	
+    	/*System.out.println(itm.consultarItems());
+    	System.out.println(itm.consultarItem(7));*/
     	
     	/*try {
     		Date dateL = formatter.parse(dateFin);
@@ -109,9 +116,9 @@ public class MyBatisExample {
         }*/
     	
 
-    	TipoItemMapper titm=sqlss.getMapper(TipoItemMapper.class);
+    	/*TipoItemMapper titm=sqlss.getMapper(TipoItemMapper.class);
     	System.out.println(titm.getTiposItems());
-    	System.out.println(titm.getTipoItem(1));
+    	System.out.println(titm.getTipoItem(1));*/
     	/*titm.addTipoItem("Peliculas");*/
 
         

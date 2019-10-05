@@ -1,5 +1,7 @@
 package edu.eci.cvds.sampleprj.dao.mybatis;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
@@ -30,6 +32,16 @@ public class MyBatisTipoItemDAO implements TipoItemDAO{
 		      throw new PersistenceException("Error al guardar la descripción ", e);
 		  }  
 		
+	}
+
+	@Override
+	public List<TipoItem> loadAll() throws PersistenceException {
+		try{
+			return tipoItemMapper.getTiposItems();
+		  }
+		  catch(org.apache.ibatis.exceptions.PersistenceException e){
+		      throw new PersistenceException("Error al guardar la descripción ", e);
+		  } 
 	}
 
 }

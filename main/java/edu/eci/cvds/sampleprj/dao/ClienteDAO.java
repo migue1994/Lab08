@@ -5,15 +5,19 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
 
 public interface ClienteDAO {
 	
-	public Cliente load(int id) throws PersistenceException;
+	public Cliente load(long id) throws PersistenceException;
 	
 	public void addItemRentado(int id, int idC,int idit, Date fechainicio,Date fechafin) throws PersistenceException;
 
 	public List<Cliente> loadAll() throws PersistenceException;
 
+	public List<ItemRentado> loadItemsCliente(long idcliente) throws PersistenceException;
+	
+	public void setVetado(long docu, boolean estado) throws PersistenceException;
 }

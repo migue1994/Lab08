@@ -54,6 +54,56 @@
     </insert>
 	
 	
+	<select parameterType="map" id="consultarItemsDisponibles" resultMap="itemResult">
+	
+		select
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    	FROM VI_ITEMS as i left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+    		
+    	where i.id not in (select ri.ITEMS_id from VI_ITEMRENTADO as ri where ri.ITEMS_id=i.id) 
+
+	</select>
+	
+	
+	<select parameterType="map" id="consultarTipoItem" resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper.tipoItemResult">
+	
+		select 
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    	FROM VI_TIPOITEM as ti left join VI_ITEMS as i on i.TIPOITEM_id=ti.id 
+    		
+    	where i.id=#{id_item}
+
+	</select>
+	
+	<update parameterType="Item" id="actualizarTarifa">
+	
+		update VI_ITEMS
+    		   
+    	set	tarifaxdia = #{tarifa}
+    		   
+    	
+    	where id = #{id_item}
+
+	</update>
+	
+		
+	
 	<resultMap id="itemResult" type="Item">
 	
     		<id property="id" column="id_item"/>
