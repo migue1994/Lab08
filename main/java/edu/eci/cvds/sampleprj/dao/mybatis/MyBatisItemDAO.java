@@ -13,7 +13,6 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class MyBatisItemDAO implements ItemDAO{
 
   @Inject

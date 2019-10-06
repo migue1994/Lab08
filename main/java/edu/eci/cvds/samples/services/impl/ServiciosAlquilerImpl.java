@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.sampleprj.dao.ClienteDAO;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
+import edu.eci.cvds.sampleprj.dao.ItemRentadoDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.samples.entities.Cliente;
@@ -27,6 +28,8 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject
    private TipoItemDAO tipoItemDAO;
    
+   @Inject
+   private ItemRentadoDAO itemRentadoDAO;
    
    @Override
    public int valorMultaRetrasoxDia(int itemId) {

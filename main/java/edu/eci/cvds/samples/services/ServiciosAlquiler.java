@@ -7,6 +7,10 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import java.sql.Date;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+
 public interface ServiciosAlquiler {
 
    public abstract int valorMultaRetrasoxDia(int itemId);

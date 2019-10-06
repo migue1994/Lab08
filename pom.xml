@@ -20,6 +20,50 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
+		
+		<dependency>
+	     	<groupId>javax</groupId>
+	     	<artifactId>javaee-web-api</artifactId>
+	     	<version>7.0</version>
+	   		<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+	    	<groupId>com.google.code.gson</groupId>
+	    	<artifactId>gson</artifactId>
+	    	<version>2.8.5</version>
+		</dependency>
+		
+		<dependency>
+	    	<groupId>javax</groupId>
+	    	<artifactId>javaee-api</artifactId>
+	    	<version>8.0.1</version>
+	    	<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+	    	<groupId>com.sun.faces</groupId>
+	    	<artifactId>jsf-api</artifactId>
+	    	<version>2.2.20</version>
+		</dependency>
+	
+		<dependency>
+	    	<groupId>com.sun.faces</groupId>
+	    	<artifactId>jsf-impl</artifactId>
+	    	<version>2.2.20</version>
+		</dependency>
+	
+		<dependency>
+	    	<groupId>javax.servlet</groupId>
+	    	<artifactId>jstl</artifactId>
+	    	<version>1.2</version>
+		</dependency>
+	
+		<dependency>
+	    	<groupId>org.primefaces</groupId>
+	    	<artifactId>primefaces</artifactId>
+	    	<version>7.0</version>
+		</dependency>
 
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -47,6 +91,7 @@
     
     <build>
         <plugins>
+        
 	        <plugin>
 	           <groupId>org.apache.maven.plugins</groupId>
 	           <artifactId>maven-compiler-plugin</artifactId>
@@ -56,6 +101,7 @@
 	               <target>1.8</target>
 	           </configuration>
 	       </plugin>
+	       
 	       <plugin>
 	           <groupId>org.apache.maven.plugins</groupId>
 	           <artifactId>maven-war-plugin</artifactId>
@@ -64,7 +110,18 @@
 	               <failOnMissingWebXml>false</failOnMissingWebXml>
 	           </configuration>
 	       </plugin>
-        
+	       
+	       <!-- Tomcat embedded plugin. -->
+	       <plugin>
+	       		<groupId>org.apache.tomcat.maven</groupId>
+           		<artifactId>tomcat7-maven-plugin</artifactId>
+           		<version>2.2</version>
+           		<configuration>
+               		<port>8080</port>
+               		<path>/</path>
+           		</configuration>
+       		</plugin>
+        	
         
             <!-- clean project (also local H2 database)-->
             <plugin>
@@ -145,12 +202,12 @@
 	        </plugin>
         </plugins>
     </build>
-        
-    
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    
 </project>
