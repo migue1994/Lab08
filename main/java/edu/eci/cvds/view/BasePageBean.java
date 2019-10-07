@@ -9,8 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import com.google.inject.Injector;
 
-@ManagedBean(name = "AlquilerItemsBean")
-@RequestScoped
+
 public abstract class BasePageBean implements Serializable {
 
     private Injector injector;
@@ -32,4 +31,5 @@ public abstract class BasePageBean implements Serializable {
     public void init() {
         getInjector().injectMembers(this);
     }
+    
 }
