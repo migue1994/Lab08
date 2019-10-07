@@ -63,6 +63,17 @@ public class MyBatisClienteDAO implements ClienteDAO{
 			throw new PersistenceException("No fue actualizar el estado vetado");
 		}
 	}
+
+	@Override
+	public void addCliente(Cliente c) throws PersistenceException {
+		try {
+			clienteMapper.insertarCliente(c);
+		}
+		catch(org.apache.ibatis.exceptions.PersistenceException e) {
+			throw new PersistenceException("No fue posible agregar al cliente");
+		}
+		
+	}
 	
 
 }

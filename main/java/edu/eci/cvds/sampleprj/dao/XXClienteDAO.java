@@ -37,6 +37,12 @@ public class XXClienteDAO implements ClienteDAO{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void addCliente(Cliente c) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

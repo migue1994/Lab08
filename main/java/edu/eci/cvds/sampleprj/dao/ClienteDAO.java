@@ -24,4 +24,6 @@ public interface ClienteDAO {
 	
 	@Transactional
 	public void setVetado(long docu, boolean estado) throws PersistenceException;
+	
+	public void addCliente(Cliente c) throws PersistenceException;
 }

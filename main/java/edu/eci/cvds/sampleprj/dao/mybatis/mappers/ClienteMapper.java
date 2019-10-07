@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import edu.eci.cvds.samples.entities.Cliente;
+import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.ItemRentado;
 
 /**
@@ -46,5 +47,6 @@ public interface ClienteMapper {
      */
 	public void actualizarClienteVetado(@Param("id_cliente")long docu, @Param("estado")boolean estado);
 
+	public void insertarCliente(@Param("cliente")Cliente c);
 }
 

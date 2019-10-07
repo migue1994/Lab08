@@ -33,6 +33,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
+import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.TipoItem;
 
@@ -80,6 +81,8 @@ public class MyBatisExample {
         
     	
     	ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+    	//Cliente c=new Cliente("natalia",12345,"54321","cll", "n@gmail.com");
+    	//cm.insertarCliente(c);
     	//cm.actualizarClienteVetado(2148825, true);
     	//System.out.println(cm.consultarItemsCliente(2148825));
     
