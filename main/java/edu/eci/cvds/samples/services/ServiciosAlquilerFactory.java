@@ -33,7 +33,7 @@ public class ServiciosAlquilerFactory {
                bind(ClienteDAO.class).to(MyBatisClienteDAO.class);
                bind(TipoItemDAO.class).to(MyBatisTipoItemDAO.class);
                bind(ItemDAO.class).to(MyBatisItemDAO.class);
-               bind(ServiciosAlquiler.class).to(ServiciosAlquilerItemsStub.class);
+               bind(ServiciosAlquiler.class).to(ServiciosAlquilerImpl.class);
            }
        });
    }

@@ -24,7 +24,7 @@ public class ServiciosAlquilerTest {
     private long documento=741444449;
     
     public ServiciosAlquilerTest() {
-    	serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
+    	serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
     }
 
     @Before

@@ -1,0 +1,100 @@
+body {
+  background-color:#7784f9;
+}
+
+h1{
+  color: white;
+  text-align: center;
+  font-size:2.5vw;
+  font-family: "Lato", "Helvetica", Helvetica, sans-serif ,"Century Gothic", Century Gothic, "Times New Roman", Times;
+}
+
+.label {
+  color: white;
+  padding: 0.5vw;
+  font-family: Arial;
+  display: inline-block;
+  width: 80px;
+}
+.nombre {
+	background-color: #d6bef1;
+} 
+.documento {
+	background-color: #f1eaee;
+	color: #918a99;
+} 
+.telefono {
+	background-color: #d6bef1;
+	
+} 
+.direccion {
+	background-color: #f1eaee;
+	color: #918a99;
+}  
+.email {
+	background-color: #d6bef1; 
+} 
+
+.form-control{
+	font-family: Arial; font-size:1.3vw;
+}
+
+
+.registro {
+  font-size:1.3vw;
+  border: 2px solid rgba(255,255,255,10);
+  border-collapse: collapse;
+ 
+}
+
+.registro tr:nth-child(even){
+	background-color: #cce2e8;
+	color:white;
+}
+
+.registro tr:nth-child(odd){
+	background-color: #afdbdb;
+	color:black;
+}
+
+.registro tr:hover {
+	background-color: #d79dcd;
+}
+
+.registro th {
+  padding-top: 25px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:#ececec;
+  color: black;
+}
+
+
+.ui-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #e1dedf;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #e1dedf;
+	box-shadow:inset 0px 1px 0px 0px #e1dedf;
+	background-color:white;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	
+	/*Borde del botón*/
+	border:1px solid light-gray;
+	display:inline-block;
+	
+	/*texto del botón*/
+	color:182b64;
+	font-family:sans-serif;
+	font-size:15px;
+	font-weight:bold;
+
+	/*Tamaño*/
+	padding:0.1vw 0.5vw;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #fae9ed;	
+}
+
+
+
+

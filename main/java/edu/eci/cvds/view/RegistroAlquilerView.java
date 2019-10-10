@@ -3,8 +3,7 @@ package edu.eci.cvds.view;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-@ManagedBean(name = "AlquilerItemsBean")
-@RequestScoped
+
 public class RegistroAlquilerView extends BasePageBean {
 
 	

@@ -1,7 +1,10 @@
 package edu.eci.cvds.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -13,26 +16,29 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 
-@ManagedBean(name = "alquilerItemsBean")
+@ManagedBean(name="AlquilerItemsBean")
 @SessionScoped
-public class RegistroClienteView{
-
+public class RegistroClienteView extends BasePageBean{
+	
 	private static final long serialVersionUID = 1L;
-	private ServiciosAlquiler serviciosAlquiler;
 	private String nC;
 	private long docC;
 	private String telC;
 	private String dirC;
 	private String emC;
-	private List<Cliente> cs;
+	private List<Cliente> listaClientes;
+	private ServiciosAlquiler serviciosAlquiler;
 	
-	@Inject
-	BasePageBean basePageBean;
-
 	public RegistroClienteView() {
-		serviciosAlquiler=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
 	}
 
+	@PostConstruct
+	public void init() {
+		serviciosAlquiler=getServiciosAlquiler();
+		actionSetClientes();
+	}
+	
+	
 	public void actionBuscarCliente() {
 		try {
 			serviciosAlquiler.consultarCliente(this.docC);
@@ -43,16 +49,15 @@ public class RegistroClienteView{
 		}
 	}
 	
-	public void actionListarClientes() {
+	public void actionSetClientes() {
 		try {
-			this.cs=serviciosAlquiler.consultarClientes();
+			setListaClientes(serviciosAlquiler.consultarClientes());
 		} 
 		catch (ExcepcionServiciosAlquiler e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	
 	public void actionGuardarCliente() {
 		try {
@@ -64,7 +69,22 @@ public class RegistroClienteView{
 		}
 	}
 
+	private void actionReiniciarValores() {
+		this.nC=null;this.docC=0;this.telC=null;this.dirC=null;this.emC=null;
+	}
 	
+	private void organizarClientes(long doc) {
+		actionSetClientes();
+		int n=listaClientes.size();
+		for(int i=0;i<n;i++) {
+			Cliente cl=listaClientes.get(i);
+			if(cl.getDocumento()==doc) {
+				Cliente aux=listaClientes.get(0);
+				listaClientes.set(0, cl);
+				listaClientes.set(i, aux);
+			}
+		}
+	}
 	
 	public String getnC() {
 		return this.nC;
@@ -90,7 +110,7 @@ public class RegistroClienteView{
 		this.telC=tel;
 	}
 	
-	public String getdirC() {
+	public String getDirC() {
 		return this.dirC;
 	}
 
@@ -105,6 +125,16 @@ public class RegistroClienteView{
 	public void setEmC(String em) {
 		this.emC=em;
 	}
-	
 
+	public List<Cliente> getListaClientes() {
+		organizarClientes(this.docC);
+		actionReiniciarValores();
+
+		return this.listaClientes;
+	}
+	
+	public void setListaClientes(List<Cliente> c) {
+		this.listaClientes=c;
+	}
+	
 }
