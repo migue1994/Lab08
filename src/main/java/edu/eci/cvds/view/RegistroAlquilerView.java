@@ -10,10 +10,11 @@ import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
-@ManagedBean(name = "AlquilerItemsBean")
-@RequestScoped
 
 public class RegistroAlquilerView extends BasePageBean {
 
@@ -23,20 +24,37 @@ public class RegistroAlquilerView extends BasePageBean {
 	private Item item;
 	private int numdias, id_item;
 	private List<ItemRentado> itemsRentados;
+	private ServiciosAlquiler serviciosAlquiler;
 	
 	/**
 	 * 
 	 */
 	
 	public RegistroAlquilerView() {
-		//super.getInjector()
 	}
-
+	
+	
+	@PostConstruct
 	public void init() {
 		serviciosAlquiler=getServiciosAlquiler();
-		setListaRentados(servicioAlquiler.consultarItemsCliente(this.cDoc));
+		try {
+			setListaRentados(servicioAlquiler.consultarItemsCliente(this.cDoc));
+		} catch (ExcepcionServiciosAlquiler e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	private void actionCargarListaRentados() {
+		try {
+			setListaRentados(servicioAlquiler.consultarItemsCliente(this.cDoc));
+		} catch (ExcepcionServiciosAlquiler e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void actionListar() {
 		try{
 			servicioAlquiler.consultarItemsCliente(this.cDoc);

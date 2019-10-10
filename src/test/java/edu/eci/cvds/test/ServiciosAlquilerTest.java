@@ -24,11 +24,12 @@ public class ServiciosAlquilerTest {
     private long documento=741444449;
     
     public ServiciosAlquilerTest() {
-    	serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
     }
 
     @Before
     public void setUp() {
+    	serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
+
     }
 
     @Test

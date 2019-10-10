@@ -90,17 +90,16 @@
     
     		i.id as id_item,
     		i.nombre as nombre_item,
-
-			DATEDIFF(curdate(),ir.fechainiciorenta)*tarifaxdia as multa_total
+		
         
     		FROM 
-    	
-    		VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
-    		join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
     		
 
 			where
-				c.documento= #{id_cliente} and curdate() < fechafinrenta
+				c.documento= #{id_cliente} 
 	</select>
 	
 	

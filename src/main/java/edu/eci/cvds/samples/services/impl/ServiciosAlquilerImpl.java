@@ -27,8 +27,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject
    private TipoItemDAO tipoItemDAO;
    
-   
-   
+   private int multaGeneral;
    @Override
    public int valorMultaRetrasoxDia(int itemId) {
 	   
