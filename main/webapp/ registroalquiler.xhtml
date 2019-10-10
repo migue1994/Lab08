@@ -18,9 +18,29 @@
         <h:form id="registroalquiler_form">
             <section>
                 <div style="text-align: center" class='table'>
-                    <h:datatable value="#{AlquilerItemsBean.actionListar}" var = "dato" style="margin: 0 auto;">
-                        <p:column headerText="Nombre" filterBy="#{cliente.nombre}">
-                            
+                    <h:datatable value="#{AlquilerItemsBean.itemsRentados}" var = "dato" style="margin: 0 auto;">
+                        <p:column headerText="Item Rentado" filterBy="#{dato.id_itemRentado}">
+                            <h:outputext value="#{dato.id_itemRentado}"></h:outputext>
+                        </p:column>
+
+                        <p:column headerText="Item Rentado" filterBy="#{dato.fecha_inicioRenta}">
+                                <h:outputext value="#{dato.fecha_inicioRenta}"></h:outputext>
+                            </p:column>
+
+                        <p:column headerText="Item Rentado" filterBy="#{dato.fechafinrenta}">
+                                <h:outputext value="#{dato.fechafinrenta}"></h:outputext>
+                        </p:column>
+
+                        <p:column headerText="Item Rentado" filterBy="#{dato.id_item}">
+                                <h:outputext value="#{dato.id_item}"></h:outputext>
+                        </p:column>
+
+                        <p:column headerText="Item Rentado" filterBy="#{dato.nombre_item}">
+                                <h:outputext value="#{dato.nombre_item}"></h:outputext>
+                        </p:column>    
+                        
+                        <p:column headerText="Item Rentado" filterBy="#{dato.multa_total}">
+                                <h:outputext value="#{dato.multa_total}"></h:outputext>
                         </p:column>
                     </h:datatable>
                 </div>
