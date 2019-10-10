@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper">
+
+	<select parameterType="map" id="consultarItemsCliente" resultMap="itemRentadoResult">
+		select
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+		
+        
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		
+
+			where
+				c.documento= #{id_cliente} 
+	</select>
+	
+	<select id="consultarDiasAlquiler" resultType="int">
+		select
+    		DATEDIFF(ir.fechainiciorenta,ir.fechafinrenta)
+
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		
+
+			where
+				ir.id= #{id_item} 
+	</select>
+	
+	
+	<resultMap id="itemRentadoResult" type="ItemRentado">
+    
+    		<id property="id" column="id_itemRentado"/>
+    		<result property="fechainiciorenta" column="fechainiciorenta"/>
+    		<result property="fechafinrenta" column="fechafinrenta"/>
+   			<association property="item" javaType="Item" column="ITEMS_id"  resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper.itemResult"/>
+    </resultMap>
+
+    
+    
+</mapper>

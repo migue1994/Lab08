@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.sampleprj.dao.ClienteDAO;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
+import edu.eci.cvds.sampleprj.dao.ItemRentadoDAO;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.samples.entities.Cliente;
@@ -14,6 +15,8 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 @Singleton
 public class ServiciosAlquilerImpl implements ServiciosAlquiler {
@@ -27,12 +30,27 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject
    private TipoItemDAO tipoItemDAO;
    
+   @Inject
+   private ItemRentadoDAO itemRentadoDAO;
+   
    private int multaGeneral;
+   private int limiteDias;
+   
+   
+   public ServiciosAlquilerImpl() {
+   }
+   
+   @PostConstruct
+   private void init() {
+	   this.multaGeneral=500;
+	   this.limiteDias=6;
+   }
+   
    @Override
    public int valorMultaRetrasoxDia(int itemId) {
-	   
-       throw new UnsupportedOperationException("Not supported yet.");
+	   return itemRentadoDAO.consultarDiasAlquiler(itemId)*multaGeneral;      
    }
+   
 
    @Override
    public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
@@ -47,7 +65,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Override
    public List<ItemRentado> consultarItemsCliente(long idcliente) throws ExcepcionServiciosAlquiler {
        try {
-    	   return clienteDAO.loadItemsCliente(idcliente);
+    	   return itemRentadoDAO.loadItemsCliente(idcliente);
        }
        catch (PersistenceException ex) {
     	   throw new ExcepcionServiciosAlquiler("El cliente "+idcliente+" no está registrado");

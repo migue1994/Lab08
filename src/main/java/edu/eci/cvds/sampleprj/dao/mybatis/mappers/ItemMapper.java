@@ -28,5 +28,6 @@ public interface ItemMapper {
     public Item consultarCostoAlquiler(@Param("id_item")int iditem);
     
     public void actualizarTarifa(@Param("id_item")int id, @Param("tarifa") long tarifa);
+
         
 }

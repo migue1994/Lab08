@@ -20,7 +20,6 @@ public interface ClienteDAO {
 
 	public List<Cliente> loadAll() throws PersistenceException;
 
-	public List<ItemRentado> loadItemsCliente(long idcliente) throws PersistenceException;
 	
 	@Transactional
 	public void setVetado(long docu, boolean estado) throws PersistenceException;

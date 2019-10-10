@@ -28,7 +28,12 @@ public class ServiciosAlquilerTest {
 
     @Before
     public void setUp() {
-    	serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
+    	try {
+    		serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquiler();
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
 
     }
 
@@ -42,6 +47,9 @@ public class ServiciosAlquilerTest {
                 r = true;
             } catch(IndexOutOfBoundsException e) {
                 r = true;
+            }
+            catch(Exception e) {
+            	e.printStackTrace();
             }
             // Validate no Client was found;
             Assert.assertTrue(r);

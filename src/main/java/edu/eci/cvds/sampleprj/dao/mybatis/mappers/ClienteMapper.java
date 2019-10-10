@@ -33,12 +33,7 @@ public interface ClienteMapper {
      */
     public List<Cliente> consultarClientes();
     
-    /**
-     * Consultar los items rentados por un cliente
-     * @param idcliente
-     * @return
-     */
-    public List<ItemRentado> consultarItemsCliente(@Param("id_cliente") long idcliente);
+ 
     
     /**
      * Actualiza el estado de vetado del cliente
