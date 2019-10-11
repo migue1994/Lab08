@@ -65,7 +65,13 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Override
    public List<ItemRentado> consultarItemsCliente(long idcliente) throws ExcepcionServiciosAlquiler {
        try {
-    	   return clienteDAO.loadItemsCliente(idcliente);
+    	   
+    	   List<ItemRentado> r= itemRentadoDAO.loadItemsCliente(idcliente);
+    	   if(r.isEmpty()) {
+    		   System.out.println("servicios-------------------------");
+    		   System.out.println("Es nulo");
+    	   }
+    	   return r;
        }
        catch (PersistenceException ex) {
     	   throw new ExcepcionServiciosAlquiler("El cliente "+idcliente+" no está registrado");

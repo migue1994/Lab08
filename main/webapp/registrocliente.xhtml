@@ -19,7 +19,7 @@
     		<section>
 				<div style="text-align: center" class='table'>
 			
-    				<p:dataTable  class="registro" value="#{AlquilerItemsBean.listaClientes}"  var="cliente"  style="margin: 0 auto;" 
+    				<p:dataTable  class="registro" value="#{RegistroBean.listaClientes}"  var="cliente"  style="margin: 0 auto;" 
     				rows="10" paginator="true" 
     				paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
     				rowsPerPageTemplate="8,10,15">
@@ -47,8 +47,8 @@
       					<p:column headerText="Vetado" filterBy="#{cliente.vetado}">
     						<h:outputText value="#{cliente.vetado}"></h:outputText>
       					</p:column>
-      					
-      					<p:column headerText="Items Rentados">
+      				    
+      				    <p:column headerText="Items Rentados">
       						<h:commandButton id= "items" value="Items" action="registroalquiler"></h:commandButton>
       				    </p:column>
       				      				
@@ -61,37 +61,37 @@
             	
             		<div >
     					<span class="label nombre">Nombre </span>
-    					<p:inputText id ="nombre" value="#{AlquilerItemsBean.nC}" placeholder="Introduce tu nombre" class="form-control"/>
+    					<p:inputText id ="nombre" value="#{RegistroBean.nC}" placeholder="Introduce tu nombre" class="form-control"/>
 					</div>
 
             		<div class="form-group">
     					<span class="label documento">Documento </span>
-    					<p:inputText id ="documento" value="#{AlquilerItemsBean.docC}" placeholder="Introduce tu documento" class="form-control"/>
+    					<p:inputText id ="documento" value="#{RegistroBean.docC}" placeholder="Introduce tu documento" class="form-control"/>
 					</div>
 
 					<div class="form-group">
     					<span class="label telefono">Tel&#233;fono </span>
-    					<p:inputText id ="telefono" value="#{AlquilerItemsBean.telC}" placeholder="Introduce tu teléfono" class="form-control"/>
+    					<p:inputText id ="telefono" value="#{RegistroBean.telC}" placeholder="Introduce tu teléfono" class="form-control"/>
 					</div>
 
 					<div class="form-group">
     					<span class="label direccion">Direcci&#243;n </span>
-    					<p:inputText id ="direccion" value="#{AlquilerItemsBean.dirC}" placeholder="Introduce tu dirección" class="form-control"/>
+    					<p:inputText id ="direccion" value="#{RegistroBean.dirC}" placeholder="Introduce tu dirección" class="form-control"/>
 					</div>
 
 					<div class="form-group">
     					<span class="label email">Email </span>
-    					<p:inputText id ="email" value="#{AlquilerItemsBean.emC}" placeholder="Introduce tu email" class="form-control"/>
+    					<p:inputText id ="email" value="#{RegistroBean.emC}" placeholder="Introduce tu email" class="form-control"/>
 					</div>
 					<br/>
 					 <div style="text-align: center">
-						<p:commandButton id= "submit" value="Submit" update="registroCliente_form" actionListener="#{AlquilerItemsBean.actionGuardarCliente}"></p:commandButton>
+						<p:commandButton id= "submit" value="Submit" update="registroCliente_form" actionListener="#{RegistroBean.actionGuardarCliente}"></p:commandButton>
 					</div>
 	
     				
     			</div>
 			</section>
-    	</h:form>   
+    	</h:form>       	
     </h:body>
 </html>
 

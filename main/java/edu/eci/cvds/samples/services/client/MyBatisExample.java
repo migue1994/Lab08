@@ -30,9 +30,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.google.inject.Inject;
+
+import edu.eci.cvds.sampleprj.dao.ClienteDAO;
+import edu.eci.cvds.sampleprj.dao.ItemRentadoDAO;
+import edu.eci.cvds.sampleprj.dao.PersistenceException;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisClienteDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
-import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
@@ -67,6 +72,7 @@ public class MyBatisExample {
         return sqlSessionFactory;
     }
 
+  
     /**
      * Programa principal de ejempo de uso de MyBATIS
      * @param args
@@ -124,9 +130,7 @@ public class MyBatisExample {
     	System.out.println(titm.getTiposItems());
     	System.out.println(titm.getTipoItem(1));*/
     	/*titm.addTipoItem("Peliculas");*/
-
-    	ItemRentadoMapper ir=sqlss.getMapper(ItemRentadoMapper.class);
-    	//System.out.println(c.consultarItemsCliente(123456));
+    	
      
         sqlss.commit();
         

@@ -6,28 +6,33 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import com.google.inject.Inject;
 
+import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.samples.entities.Cliente;
+import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 
 
-@ManagedBean(name="AlquilerItemsBean")
-@SessionScoped
+@ManagedBean(name="RegistroBean")
+@RequestScoped
 public class RegistroClienteView extends BasePageBean{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	private String nC;
-	private long docC,docAux;
+	private long docC,docAux,cDoc;
 	private String telC;
 	private String dirC;
 	private String emC;
 	private List<Cliente> listaClientes;
+	private List<ItemRentado> listaRentados;
+	
 	private ServiciosAlquiler serviciosAlquiler;
 	
 	public RegistroClienteView() {
@@ -37,8 +42,17 @@ public class RegistroClienteView extends BasePageBean{
 	public void init() {
 		serviciosAlquiler=getServiciosAlquiler();
 		actionSetClientes();
+		actionListar();
 	}
 	
+	public void actionListar() {
+		try{
+			this.listaRentados=serviciosAlquiler.consultarItemsCliente(123456);
+		}
+		catch(ExcepcionServiciosAlquiler e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void actionBuscarCliente() {
 		try {
@@ -59,6 +73,8 @@ public class RegistroClienteView extends BasePageBean{
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	public void actionGuardarCliente() {
 		try {
@@ -140,8 +156,12 @@ public class RegistroClienteView extends BasePageBean{
 		this.listaClientes=c;
 	}
 	
-	public String moveToItemsRentados() {
-		return super.moveToPage("registroalquiler");
+	public List<ItemRentado> getListaRentados() {
+		return this.listaRentados;
+	}
+	
+	public void setListaRentados(List<ItemRentado> i) {
+		this.listaRentados=i;
 	}
 	
 }

@@ -18,22 +18,21 @@
             <section>
                 <div style="text-align: center" class='table'>
                 
-                    <p:dataTable class="alquiler" value="#{AlquilerItemsBean.itemsRentados}" var = "dato" style="margin: 0 auto;">
+                    <p:dataTable value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;">
     				
-    					<p:column headerText="Id" filterBy="#{dato.id}">
-                                <h:outputText value="#{dato.id}"></h:outputText>
+    					<p:column headerText="Id" filterBy="#{itemRentado.id}">
+                        	<h:outputText value="#{itemRentado.id}"></h:outputText>
                         </p:column>            
 						
-                        <p:column headerText="Inicio de Renta" filterBy="#{dato.fechainiciorenta}">
-                        	<h:outputText value="#{dato.fechainiciorenta}"></h:outputText>
+                        <p:column headerText="Inicio de Renta" filterBy="#{itemRentado.fechainiciorenta}">
+                        	<h:outputText value="#{itemRentado.fechainiciorenta}"></h:outputText>
                         </p:column>
 
-                        <p:column headerText="Fin de Renta" filterBy="#{dato.fechafinrenta}">
-                                <h:outputText value="#{dato.fechafinrenta}"></h:outputText>
-                        </p:column>    
+                        <p:column headerText="Fin de Renta" filterBy="#{itemRentado.fechafinrenta}">
+                        	<h:outputText value="#{itemRentado.fechafinrenta}"></h:outputText>
+                        </p:column>  
                         
-                     
-
+                           
                     </p:dataTable>
                 </div>
             </section>

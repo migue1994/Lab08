@@ -5,6 +5,26 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper">
 
+	<select parameterType="map" id="consultarItemsCliente" resultMap="itemRentadoResult">
+		select
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item
+		
+        
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		
+
+			where
+				c.documento= #{id_cliente} 
+	</select>
 	
 	<select id="consultarDiasAlquiler" resultType="int">
 		select

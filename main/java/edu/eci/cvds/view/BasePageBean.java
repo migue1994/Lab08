@@ -11,7 +11,6 @@ import com.google.inject.Injector;
 
 import edu.eci.cvds.sampleprj.dao.ClienteDAO;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
-import edu.eci.cvds.sampleprj.dao.ItemRentadoDAO;
 import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisClienteDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisItemDAO;
@@ -19,11 +18,12 @@ import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisTipoItemDAO;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 
-
-public abstract class BasePageBean implements Serializable {
+@ManagedBean(name="AlquilerItemsBean")
+@RequestScoped
+public class BasePageBean implements Serializable {
 
  	private static final long serialVersionUID = 1L;
-	
+ 	
 	private Injector injector;
 
 	
@@ -44,17 +44,12 @@ public abstract class BasePageBean implements Serializable {
     	return getInjector().getInstance(TipoItemDAO.class);
     }
 
-    
-    protected ItemRentadoDAO getItemRentadoDAO() {
-    	return getInjector().getInstance(ItemRentadoDAO.class);
+    protected ItemDAO getItemDAO() {
+    	return getInjector().getInstance(ItemDAO.class);
     }
-    
 
     protected ServiciosAlquiler getServiciosAlquiler() {
     	return getInjector().getInstance(ServiciosAlquiler.class);
     }
     
-    protected String moveToPage(String page) {
-	      return page;
-	}
 }

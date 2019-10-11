@@ -65,16 +65,6 @@ public class MyBatisClienteDAO implements ClienteDAO{
 		}
 		
 	}
-
-	@Override
-	public List<ItemRentado> loadItemsCliente(long idcliente) throws PersistenceException{
-		try{
-			return clienteMapper.consultarItemsCliente(idcliente);
-		}
-		catch(org.apache.ibatis.exceptions.PersistenceException e){
-			throw new PersistenceException("Error al consultar clientes", e);
-		}        
-	}
 	
 
 }
