@@ -32,6 +32,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
@@ -124,7 +125,8 @@ public class MyBatisExample {
     	System.out.println(titm.getTipoItem(1));*/
     	/*titm.addTipoItem("Peliculas");*/
 
-        
+    	ItemRentadoMapper ir=sqlss.getMapper(ItemRentadoMapper.class);
+    	//System.out.println(c.consultarItemsCliente(123456));
      
         sqlss.commit();
         

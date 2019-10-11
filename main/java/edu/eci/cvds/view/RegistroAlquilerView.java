@@ -2,6 +2,7 @@ package edu.eci.cvds.view;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 
@@ -10,14 +11,15 @@ import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-
 public class RegistroAlquilerView extends BasePageBean {
 
+	private static final long serialVersionUID = 1L;
 	private ServiciosAlquiler servicioAlquiler;
 	private Long cDoc;
 	private Date fechainicio, fechafin;
@@ -26,9 +28,7 @@ public class RegistroAlquilerView extends BasePageBean {
 	private List<ItemRentado> itemsRentados;
 	private ServiciosAlquiler serviciosAlquiler;
 	
-	/**
-	 * 
-	 */
+	
 	
 	public RegistroAlquilerView() {
 	}
@@ -36,28 +36,46 @@ public class RegistroAlquilerView extends BasePageBean {
 	
 	@PostConstruct
 	public void init() {
-		serviciosAlquiler=getServiciosAlquiler();
+		this.cDoc=(long)123456;
+		itemsRentados=new ArrayList<ItemRentado>();
+		this.serviciosAlquiler=super.getServiciosAlquiler();
+		System.out.println("-------------nulo-----------------");
+		System.out.println(this.serviciosAlquiler==null);
 		try {
-			setListaRentados(servicioAlquiler.consultarItemsCliente(this.cDoc));
-		} catch (ExcepcionServiciosAlquiler e) {
-			// TODO Auto-generated catch block
+			
+			System.out.println("no llega 1");
+			System.out.println("-------------------------------------");
+			actionCargarListaRentados();
+			System.out.println("no llega 2");
+		}
+		catch(Exception e) {
 			e.printStackTrace();
+			System.out.println("here error");
+			System.out.println(this.getCDoc());
 		}
 	}
 
-	private void actionCargarListaRentados() {
+	public void actionCargarListaRentados() {
 		try {
-			setListaRentados(servicioAlquiler.consultarItemsCliente(this.cDoc));
-		} catch (ExcepcionServiciosAlquiler e) {
+			System.out.println("here error 3---------------------------------------");
+			System.out.println(this.getCDoc());
+			System.out.println(serviciosAlquiler.consultarClientes());
+			System.out.println("noooooooooooooooo");
+			List<ItemRentado> lr=this.servicioAlquiler.consultarItemsCliente(this.cDoc);
+			System.out.println("noooooooooooooooo nulllllll");
+
+			System.out.println(lr==null);
+			setItemsRentados(lr);
+		} 
+		catch (ExcepcionServiciosAlquiler e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
 	public void actionListar() {
 		try{
-			servicioAlquiler.consultarItemsCliente(this.cDoc);
+			this.itemsRentados=this.servicioAlquiler.consultarItemsCliente(this.cDoc);
 		}
 		catch(ExcepcionServiciosAlquiler e){
 			e.printStackTrace();
@@ -66,7 +84,7 @@ public class RegistroAlquilerView extends BasePageBean {
 
 	public void actionConsultarCosto(){
 		try{
-			servicioAlquiler.consultarCostoAlquiler(this.id_item, this.numdias);
+			this.servicioAlquiler.consultarCostoAlquiler(this.id_item, this.numdias);
 		}
 		catch(ExcepcionServiciosAlquiler e){
 			e.printStackTrace();
@@ -80,8 +98,9 @@ public class RegistroAlquilerView extends BasePageBean {
 	public void borrarGuardar() {
 		
 	}
-
-	public void setCdoc(Long cDoc){
+	
+	
+	public void setCdoc(long cDoc){
 		this.cDoc = cDoc;
 	}
 
@@ -101,10 +120,12 @@ public class RegistroAlquilerView extends BasePageBean {
 		this.id_item=id_item;
 	}
 
-	public Long getCDoc(){
+	public long getCDoc(){
 		return this.cDoc;
 	}
 
+	
+	
 	public Date getFechaInicio(){
 		return this.fechainicio;
 	}
@@ -121,7 +142,11 @@ public class RegistroAlquilerView extends BasePageBean {
 		return this.id_item;
 	}
 
-	public void setListaRentados(List<ItemRentado> ir){
+	public List<ItemRentado> getItemsRentados(){
+		return this.itemsRentados;
+	}
+	
+	public void setItemsRentados(List<ItemRentado> ir){
 		this.itemsRentados= ir;
 	}
 }

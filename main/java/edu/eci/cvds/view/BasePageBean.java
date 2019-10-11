@@ -11,6 +11,7 @@ import com.google.inject.Injector;
 
 import edu.eci.cvds.sampleprj.dao.ClienteDAO;
 import edu.eci.cvds.sampleprj.dao.ItemDAO;
+import edu.eci.cvds.sampleprj.dao.ItemRentadoDAO;
 import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisClienteDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisItemDAO;
@@ -43,12 +44,17 @@ public abstract class BasePageBean implements Serializable {
     	return getInjector().getInstance(TipoItemDAO.class);
     }
 
-    protected ItemDAO getItemDAO() {
-    	return getInjector().getInstance(ItemDAO.class);
+    
+    protected ItemRentadoDAO getItemRentadoDAO() {
+    	return getInjector().getInstance(ItemRentadoDAO.class);
     }
+    
 
     protected ServiciosAlquiler getServiciosAlquiler() {
     	return getInjector().getInstance(ServiciosAlquiler.class);
     }
-
+    
+    protected String moveToPage(String page) {
+	      return page;
+	}
 }

@@ -16,13 +16,14 @@ import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 
+
 @ManagedBean(name="AlquilerItemsBean")
 @SessionScoped
 public class RegistroClienteView extends BasePageBean{
 	
 	private static final long serialVersionUID = 1L;
 	private String nC;
-	private long docC;
+	private long docC,docAux;
 	private String telC;
 	private String dirC;
 	private String emC;
@@ -62,7 +63,9 @@ public class RegistroClienteView extends BasePageBean{
 	public void actionGuardarCliente() {
 		try {
 			Cliente c=new Cliente(this.nC,this.docC,this.telC,this.dirC,this.emC);
+			this.docAux=this.docC;
 			serviciosAlquiler.registrarCliente(c);
+			getListaClientes();
 		} catch (ExcepcionServiciosAlquiler e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +130,7 @@ public class RegistroClienteView extends BasePageBean{
 	}
 
 	public List<Cliente> getListaClientes() {
-		organizarClientes(this.docC);
+		organizarClientes(this.docAux);
 		actionReiniciarValores();
 
 		return this.listaClientes;
@@ -135,6 +138,10 @@ public class RegistroClienteView extends BasePageBean{
 	
 	public void setListaClientes(List<Cliente> c) {
 		this.listaClientes=c;
+	}
+	
+	public String moveToItemsRentados() {
+		return super.moveToPage("registroalquiler");
 	}
 	
 }

@@ -97,7 +97,26 @@
     	VALUES (#{cliente.documento},#{cliente.nombre},#{cliente.telefono},#{cliente.direccion},#{cliente.email}, #{cliente.vetado})
     </insert>
 
+	<select parameterType="map" id="consultarItemsCliente" resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper.itemRentadoResult">
+		select
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item
+		
+        
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		
 
+			where
+				c.documento= #{id_cliente} 
+	</select>
 	
 	
 	<resultMap id="ClienteResult" type="Cliente">

@@ -17,14 +17,14 @@ h1{
   width: 80px;
 }
 .nombre {
-	background-color: #d6bef1;
+	background-color: #baa2dc;
 } 
 .documento {
 	background-color: #f1eaee;
 	color: #918a99;
 } 
 .telefono {
-	background-color: #d6bef1;
+	background-color: #baa2dc;
 	
 } 
 .direccion {
@@ -32,7 +32,7 @@ h1{
 	color: #918a99;
 }  
 .email {
-	background-color: #d6bef1; 
+	background-color: #baa2dc; 
 } 
 
 .form-control{
