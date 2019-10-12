@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper">
+
+
+	<select parameterType="map" id="getTiposItems" resultMap="tipoItemResult">
+	
+			select
+      
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+    
+    		FROM VI_TIPOITEM as ti
+
+	</select>
+	
+	<select parameterType="map" id="getTipoItem" resultMap="tipoItemResult">
+	
+			select
+      
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+    
+    		FROM VI_TIPOITEM as ti
+    		
+    		WHERE ti.id=#{id_tipoItem}
+
+	</select>
+	
+    
+    <insert id ="addTipoItem">
+		<selectKey keyProperty="id_tipoItem" resultType="int" order="BEFORE">
+			select MAX(id)+1 from VI_TIPOITEM 
+		</selectKey>
+    	insert into VI_TIPOITEM (id,descripcion) 
+    	VALUES ( #{id_tipoItem},#{descripcion})
+    </insert>
+
+
+    <resultMap id="tipoItemResult" type="TipoItem">
+    		
+    		<id property="id" column="id_tipoItem"/>
+    		<result property="descripcion" column="descripcion_tipoItem"/>
+      		
+    </resultMap>  
+
+                
+</mapper>

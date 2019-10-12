@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
+
+	<select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
+			SELECT 
+    
+    		c.nombre as nombre_cliente ,
+    		c.documento as id_cliente,
+    		c.telefono,
+    		c.direccion,
+    		c.email,
+    		c.vetado,
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    		FROM VI_CLIENTES as c 
+    	
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+ 			
+	</select>
+	
+	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
+    	
+		SELECT
+    		c.nombre as nombre_cliente ,
+    		c.documento as id_cliente,
+    		c.telefono,
+    		c.direccion,
+    		c.email,
+    		c.vetado,
+    
+    		ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+
+    
+    		FROM VI_CLIENTES as c 
+    	
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
+        	
+        	WHERE c.documento= #{id_cliente}
+    </select>
+    
+    
+    <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
+    	insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) 
+    	VALUES (#{id_itemRentado},#{id_cliente},#{id_item},#{fechainiciorenta},#{fechafinrenta})
+    </insert>
+
+	
+	<update parameterType="Cliente" id="actualizarClienteVetado">
+	
+		update VI_CLIENTES
+    		   
+    	set	vetado = #{estado}
+    		   
+    	
+    	where documento = #{id_cliente}
+
+	</update>
+
+	<insert id ="insertarCliente">
+    	insert into VI_CLIENTES (documento,nombre,telefono,direccion,email,vetado) 
+    	VALUES (#{cliente.documento},#{cliente.nombre},#{cliente.telefono},#{cliente.direccion},#{cliente.email}, #{cliente.vetado})
+    </insert>
+
+
+	
+	
+	<resultMap id="ClienteResult" type="Cliente">
+	
+			<id property="documento" column="id_cliente"/>
+    		<result property="nombre" column="nombre_cliente"/>
+    		<result property="telefono" column="telefono"/>
+    		<result property="direccion" column="direccion"/>
+    		<result property="email" column="email"/>
+   			<result property="vetado" column="vetado"/>
+   			<collection property="rentados" ofType="ItemRentado" column="id_cliente" resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper.itemRentadoResult" />   			
+   			
+    </resultMap>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

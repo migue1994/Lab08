@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<h1>Videotienda - Registro alquiler</h1>
+		
+    </h:head>
+    
+    <h:body>
+
+        <h:form id="registroAlquiler_form">
+            <section>
+                <div style="text-align: center" class='table'>
+                
+                    <p:dataTable value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;">
+    				
+    					<p:column headerText="Id" filterBy="#{itemRentado.id}">
+                        	<h:outputText value="#{itemRentado.id}"></h:outputText>
+                        </p:column>            
+						
+                        <p:column headerText="Inicio de Renta" filterBy="#{itemRentado.fechainiciorenta}">
+                        	<h:outputText value="#{itemRentado.fechainiciorenta}"></h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Fin de Renta" filterBy="#{itemRentado.fechafinrenta}">
+                        	<h:outputText value="#{itemRentado.fechafinrenta}"></h:outputText>
+                        </p:column>
+                        
+                        <p:column headerText="Valor Multa" filterBy="#{AlquilerBean.calcularMulta(itemRentado.fechainiciorenta,itemRentado.fechafinrenta)}">
+                        	<h:outputText value="#{AlquilerBean.calcularMulta(itemRentado.fechainiciorenta,itemRentado.fechafinrenta)}"></h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>  
+              
+            </section>
+
+            <p:outputLabel style="font-size: 25px"><strong>Alquilar</strong></p:outputLabel>
+            <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
+                <p:outputLabel value ="IDItem"/>
+                <p:inputText id = "imput_id" value="#{AlquilerBean.id_item}"/>
+
+                <p:outputLabel value="Dias"/>
+                <p:inputText id="numdias" value="#{AlquilerBean.numdias}"/>
+                <br/>
+
+                <p:commandButton value="Calcular costo" action="#{AlquilerBean.calcularCosto()}" update="registroAlquiler_form"/>
+                <p:outputLabel value="Total"/>
+                <p:outputLabel value="#{AlquilerBean.costo}"/>
+            </h:panelGrid>
+			
+			<section>
+				<br/>
+				<div style="text-align: center">
+					<p:commandButton id= "submit" value="Submit" action="#{AlquilerItemsBean.page1}">
+                        <f:actionListener binding="#{AlquilerBean.registrarAlquilerCliente()}"/>
+                    </p:commandButton>
+				</div>
+			
+			</section>
+
+        </h:form>
+
+    </h:body>
+    
+</html>
