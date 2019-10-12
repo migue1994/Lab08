@@ -17,7 +17,7 @@ public class MyBatisClienteDAO implements ClienteDAO{
 	private ClienteMapper clienteMapper;    
 		
 	@Override
-	public Cliente load(long id) throws PersistenceException{
+	public Cliente load(long id) throws PersistenceException {
 		Cliente c=clienteMapper.consultarCliente(id);
 		if(c==null) throw new PersistenceException("Error al consultar cliente "+ Integer.toString((int)id));
 		else return c;       

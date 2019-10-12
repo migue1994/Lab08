@@ -33,22 +33,17 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject
    private ItemRentadoDAO itemRentadoDAO;
    
-   private int multaGeneral;
-   private int limiteDias;
+   private final int multaGeneral=10000;
+   private final int limiteDias=6;
    
    
    public ServiciosAlquilerImpl() {
    }
    
-   @PostConstruct
-   private void init() {
-	   this.multaGeneral=500;
-	   this.limiteDias=6;
-   }
    
    @Override
    public int valorMultaRetrasoxDia(int itemId) {
-	   return itemRentadoDAO.consultarDiasAlquiler(itemId)*multaGeneral;      
+	   return this.multaGeneral;      
    }
    
 

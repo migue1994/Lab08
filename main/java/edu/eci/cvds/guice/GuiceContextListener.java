@@ -18,6 +18,7 @@ import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisItemRentadoDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisTipoItemDAO;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerImpl;
+import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 
 public class GuiceContextListener implements ServletContextListener {
 
