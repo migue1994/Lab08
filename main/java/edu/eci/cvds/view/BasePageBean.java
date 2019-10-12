@@ -19,13 +19,13 @@ import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 
 @ManagedBean(name="AlquilerItemsBean")
-@RequestScoped
+@SessionScoped
 public class BasePageBean implements Serializable {
 
  	private static final long serialVersionUID = 1L;
  	
 	private Injector injector;
-
+	protected long docAlq;
 	
     private Injector getInjector() {
         if (injector == null) {
@@ -52,4 +52,19 @@ public class BasePageBean implements Serializable {
     	return getInjector().getInstance(ServiciosAlquiler.class);
     }
     
+    public String page1(){
+		return "registrocliente";
+	}
+	
+	public String page2(){
+		return "registroalquiler";
+	}
+    
+    public long getDocAlq() {
+		return this.docAlq;
+	}
+    
+    public void setDocAlq(long a) {
+		this.docAlq=a;
+	}
 }

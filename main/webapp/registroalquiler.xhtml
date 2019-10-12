@@ -30,12 +30,21 @@
 
                         <p:column headerText="Fin de Renta" filterBy="#{itemRentado.fechafinrenta}">
                         	<h:outputText value="#{itemRentado.fechafinrenta}"></h:outputText>
-                        </p:column>  
-                        
-                           
+                        </p:column>         
+
                     </p:dataTable>
-                </div>
+                </div>  
+              
             </section>
+			
+			<section>
+				<br/>
+				<div style="text-align: center">
+					<p:commandButton id= "submit" value="Submit" action="#{AlquilerItemsBean.page1}"></p:commandButton>
+				</div>
+			
+			</section>
+
         </h:form>
 
     </h:body>

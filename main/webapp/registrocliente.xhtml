@@ -49,7 +49,7 @@
       					</p:column>
       				    
       				    <p:column headerText="Items Rentados">
-      						<h:commandButton id= "items" value="Items" action="registroalquiler"></h:commandButton>
+      						<p:commandButton actionListener="#{RegistroBean.setDocAlq(cliente.documento)}" value="Items" action="#{AlquilerItemsBean.page2}" />
       				    </p:column>
       				      				
     				</p:dataTable>
@@ -84,7 +84,7 @@
     					<p:inputText id ="email" value="#{RegistroBean.emC}" placeholder="Introduce tu email" class="form-control"/>
 					</div>
 					<br/>
-					 <div style="text-align: center">
+					<div style="text-align: center">
 						<p:commandButton id= "submit" value="Submit" update="registroCliente_form" actionListener="#{RegistroBean.actionGuardarCliente}"></p:commandButton>
 					</div>
 	

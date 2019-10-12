@@ -22,37 +22,31 @@ import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 
 @ManagedBean(name="RegistroBean")
 @RequestScoped
-public class RegistroClienteView extends BasePageBean{
+public class RegistroClienteView{
 	
 	private static final long serialVersionUID = 2L;
 	private String nC;
-	private long docC,docAux,cDoc;
+	private long docC,docAux;
 	private String telC;
 	private String dirC;
 	private String emC;
 	private List<Cliente> listaClientes;
 	private List<ItemRentado> listaRentados;
-	
 	private ServiciosAlquiler serviciosAlquiler;
+	
+	@ManagedProperty(value="#{AlquilerItemsBean}")
+	private BasePageBean baseBean;
+	
 	
 	public RegistroClienteView() {
 	}
 
 	@PostConstruct
 	public void init() {
-		serviciosAlquiler=getServiciosAlquiler();
+		serviciosAlquiler=baseBean.getServiciosAlquiler();
 		actionSetClientes();
-		actionListar();
 	}
-	
-	public void actionListar() {
-		try{
-			this.listaRentados=serviciosAlquiler.consultarItemsCliente(123456);
-		}
-		catch(ExcepcionServiciosAlquiler e){
-			e.printStackTrace();
-		}
-	}
+
 	
 	public void actionBuscarCliente() {
 		try {
@@ -121,6 +115,11 @@ public class RegistroClienteView extends BasePageBean{
 		this.docC=doc;
 	}
 	
+
+	public void setDocAlq(Long a) {
+		baseBean.setDocAlq((long)a);
+	}
+	
 	public String getTelC() {
 		return this.telC;
 	}
@@ -164,4 +163,11 @@ public class RegistroClienteView extends BasePageBean{
 		this.listaRentados=i;
 	}
 	
+	public void setBaseBean(BasePageBean bs){
+	    this.baseBean = bs;
+	}
+	   
+	public BasePageBean getUsuario() {
+		return this.baseBean;
+	} 
 }

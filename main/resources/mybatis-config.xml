@@ -33,7 +33,9 @@
             </dataSource>
         </environment>
     </environments>
-        
+    
+	
+    
     <mappers>
         <mapper resource="mappers/ClienteMapper.xml"></mapper>
         <mapper resource="mappers/ItemMapper.xml"></mapper>
