@@ -105,6 +105,8 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
            throw new ExcepcionServiciosAlquiler("Error al consultar el item "+id,ex);
        }
    }
+   
+   
 
    @Override
    public List<Item> consultarItemsDisponibles() throws ExcepcionServiciosAlquiler{

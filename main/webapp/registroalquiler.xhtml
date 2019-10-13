@@ -8,17 +8,18 @@
       xmlns:p="http://primefaces.org/ui">
 	
 	<h:head>
-		<h1>Videotienda - Registro alquiler</h1>
+		<link rel="stylesheet" type="text/css" href="registroalquiler.css" />
 		
     </h:head>
     
     <h:body>
 
+		<h1>Videotienda - Registro alquiler</h1>
         <h:form id="registroAlquiler_form">
             <section>
                 <div style="text-align: center" class='table'>
                 
-                    <p:dataTable value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;"
+                    <p:dataTable class="alquiler" value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;"
                     rows="10" paginator="true" 
     				paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
     				rowsPerPageTemplate="5,10,15">
@@ -48,6 +49,11 @@
 			
 			<section>
 				<div style="text-align: center">
+					<br/>
+            		
+            		<h2>Registrar alquiler</h2>
+            		
+            		<br/>
             	
 	            	<div >
 	            		<span class="label idItem">Item </span>
@@ -66,16 +72,20 @@
 					<div>
     					<p:commandButton value="Costo" action="#{AlquilerBean.actionSetCosto}" update="registroAlquiler_form"/>
 						<br/>
-						<h:outputText value="#{AlquilerBean.costo}"></h:outputText>
+						<p>
+							<b>El costo de alquiler es: </b> <p:outputLabel  value="#{AlquilerBean.costo}" />
+							<br/>
+		    				<b>Estado del item: </b> <p:outputLabel value="#{AlquilerBean.estado}"/> &nbsp;
+						</p>
 					</div>
 					
 					<br/>
 					
 					<div style="text-align: center">
-						<p:commandButton id= "submit" value="Submit" action="#{AlquilerItemsBean.page1}" actionListener="#{AlquilerBean.registrarAlquilerCliente}" update="registroAlquiler_form"></p:commandButton>
+						<p:commandButton id= "alquilar" value="Alquilar" action="#{AlquilerItemsBean.page1}" actionListener="#{AlquilerBean.registrarAlquilerCliente}" update="registroAlquiler_form"></p:commandButton>    
+						<p:commandButton id= "back" value="Back" action="#{AlquilerItemsBean.page1}" update="registroAlquiler_form"></p:commandButton>
 					</div>
-					
-				
+					<br/><br/>
 				</div>
 			
 			</section>

@@ -1,5 +1,5 @@
 body {
-  background-color:#dbc3ed;
+  background-color:#b0d5f6;
 }
 
 h1{
@@ -16,6 +16,13 @@ h2{
   text-align:center;
 }
 
+
+p{
+  color: black;
+  font-size:1.2vw;
+  font-family: "Helvetica", Helvetica, sans-serif ,"Century Gothic", Century Gothic, "Times New Roman", Times;
+}
+
 .label {
   color: white;
   padding: 0.5vw;
@@ -23,23 +30,14 @@ h2{
   display: inline-block;
   width: 6vw;
 }
-.nombre {
-	background-color: #6f7b92;
-} 
-.documento {
-	background-color: #f1eaee;
-	color: #393a46;
-} 
-.telefono {
-	background-color: #6f7b92;
-	
-} 
-.direccion {
-	background-color: #f1eaee;
-	color: #393a46;
-}  
-.email {
-	background-color: #6f7b92; 
+
+.idItem {
+	background-color: #735d50;
+}
+ 
+.numdias {
+	background-color: #f4dbcb;
+	color: black;
 } 
 
 .form-control{
@@ -49,32 +47,30 @@ h2{
 	width: 17vw;
 }
 
-
-
-.registro {
+.alquiler {
   font-size:1.2vw;
   border: 0.2vw solid rgba(255,255,255,10);
   border-collapse: collapse;
-  width: 87%;
+  width: 70%;
   
  
 }
 
-.registro tr:nth-child(even){
-	background-color: #cce2e8;
+.alquiler tr:nth-child(even){
+	background-color: #f9f256;
 	color:white;
 }
 
-.registro tr:nth-child(odd){
-	background-color: #afdbdb;
+.alquiler tr:nth-child(odd){
+	background-color: #fcf8a5;
 	color:black;
 }
 
-.registro tr:hover {
-	background-color: #d79dcd;
+.alquiler tr:hover {
+	background-color: #f04c65;
 }
 
-.registro th {
+.alquiler th {
   padding-top: 25px;
   padding-bottom: 12px;
   text-align: left;
@@ -107,7 +103,3 @@ h2{
 	text-decoration:none;
 	text-shadow:1px 1px 0px #fae9ed;	
 }
-
-
-
-

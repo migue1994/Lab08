@@ -40,6 +40,7 @@ public class RegistroAlquilerView {
 	private int idItem;
 	private long costo;
 	private long docC;
+	private String estado;
 	
 	public RegistroAlquilerView() {
 	}
@@ -47,6 +48,7 @@ public class RegistroAlquilerView {
 	@PostConstruct
 	public void init() {
 		serviciosAlquiler=baseBean.getServiciosAlquiler();
+		setEstado("No item");
 		getDocumentoCliente();
 		actionSetItemRentados();
 	}
@@ -77,25 +79,61 @@ public class RegistroAlquilerView {
 	public void actionSetCosto() {
 		try {
 			setCosto(serviciosAlquiler.consultarCostoAlquiler(idItem, numdias));
+			actionEstadoItem();
 		}
 		catch (ExcepcionServiciosAlquiler e) {
 			e.printStackTrace();
 		}
 	}
-
+	private boolean buscarItem(List<Item>li,int it) {
+		boolean b=false;
+		for(int i=0;i<li.size();i++) {
+			if(b==false) {
+				Item item=li.get(i);
+				int id=item.getId();
+				if(id==it) {
+					b=true;
+				}
+			}
+			
+		}
+		return b;
+	}
+	
+	
+	private void actionEstadoItem() {
+		try {
+			
+			List<Item> disponibles=serviciosAlquiler.consultarItemsDisponibles();
+			boolean b=buscarItem(disponibles,this.idItem);
+			
+			if(b) {
+				this.estado="Disponible";
+			}
+			else {
+				this.estado="No disponible";
+			}
+		} catch (ExcepcionServiciosAlquiler e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	public void registrarAlquilerCliente() throws ExcepcionServiciosAlquiler {
 		try{
-			Item item = serviciosAlquiler.consultarItem(this.idItem);
-			List<Item> disponibles=serviciosAlquiler.consultarItemsDisponibles();
+			actionEstadoItem();
+			Item item=serviciosAlquiler.consultarItem(this.idItem);
 			
 			java.util.Date fechaInicio=new java.util.Date();
 			
 			java.sql.Date fechaInicioSQL=new java.sql.Date(fechaInicio.getTime());
 			
-			System.out.println(this.docC);
-			if(!disponibles.contains(item)) {
+			if(this.estado=="Disponible") {
 				serviciosAlquiler.registrarAlquilerCliente(fechaInicioSQL,this.docC, item, this.numdias);
 			}
+			
 			
 		}
 		catch(ExcepcionServiciosAlquiler e){
@@ -148,6 +186,15 @@ public class RegistroAlquilerView {
 	public void setNumdias(int n) {
 		this.numdias=n;
 	}
+	
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String e) {
+		this.estado=e;
+	}
+	
 	
 	public BasePageBean getUsuario() {
 		return this.baseBean;

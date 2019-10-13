@@ -53,11 +53,11 @@ public class BasePageBean implements Serializable {
     }
     
     public String page1(){
-		return "registrocliente";
+		return "registrocliente?faces-redirect=true";
 	}
 	
 	public String page2(){
-		return "registroalquiler";
+		return "registroalquiler?faces-redirect=true";
 	}
     
     public long getDocAlq() {
