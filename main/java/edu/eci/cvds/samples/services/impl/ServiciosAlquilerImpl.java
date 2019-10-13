@@ -14,7 +14,6 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -34,22 +33,17 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject
    private ItemRentadoDAO itemRentadoDAO;
    
-   private int multaGeneral;
-   private int limiteDias;
+   private final int multaGeneral=10000;
+   private final int limiteDias=6;
    
    
    public ServiciosAlquilerImpl() {
    }
    
-   @PostConstruct
-   private void init() {
-	   this.multaGeneral=500;
-	   this.limiteDias=6;
-   }
    
    @Override
    public int valorMultaRetrasoxDia(int itemId) {
-	   return itemRentadoDAO.consultarDiasAlquiler(itemId)*multaGeneral;      
+	   return this.multaGeneral;      
    }
    
 
@@ -140,14 +134,14 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
         LocalDate ld=date.toLocalDate();
         LocalDate ld2=ld.plusDays(numdias);
-        int rentados = consultarCliente(docu).getRentados().size();   
+        int rentados = consultarCliente(docu).getRentados().size();
         ItemRentado ir=new ItemRentado(rentados+1,item,date,java.sql.Date.valueOf(ld2));
         try {
-            clienteDAO.addItemRentado(rentados+1, (int)docu, item.getId(), java.sql.Date.valueOf(ld), java.sql.Date.valueOf(ld2));
+            clienteDAO.addItemCliente(docu, ir.getId(), java.sql.Date.valueOf(ld), java.sql.Date.valueOf(ld2));
         }
         catch (PersistenceException ex) {
-            throw new ExcepcionServiciosAlquiler("Error al registrar alquiler.",ex);
-    }  
+                throw new ExcepcionServiciosAlquiler("Error al registrar alquiler.",ex);
+        }
    }
 
    @Override
