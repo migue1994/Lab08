@@ -9,6 +9,13 @@ h1{
   font-family: "Lato", "Helvetica", Helvetica, sans-serif ,"Century Gothic", Century Gothic, "Times New Roman", Times;
 }
 
+h2{
+  color: white;
+  font-family: "Lato", "Helvetica", Helvetica, sans-serif ,"Century Gothic", Century Gothic, "Times New Roman", Times;
+  font-size:1.2vw;
+  text-align:center;
+}
+
 .label {
   color: white;
   padding: 0.5vw;

@@ -14,6 +14,12 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -42,8 +48,14 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    
    
    @Override
-   public int valorMultaRetrasoxDia(int itemId) {
-	   return this.multaGeneral;      
+   public int valorMultaRetrasoxDia(int itemId) throws ExcepcionServiciosAlquiler {
+	   try {
+		   Item i=itemDAO.load(itemId);   
+		   return this.multaGeneral;   
+	   } 
+	   catch (PersistenceException e) {
+		   throw new ExcepcionServiciosAlquiler("Item no encontrado",e);
+	   }
    }
    
 
@@ -103,12 +115,31 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 		   throw new ExcepcionServiciosAlquiler("Error al consultar los items disponibles",e);
 	   }
    }
-
+   
+   
    @Override
    public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
-       throw new UnsupportedOperationException("Not supported yet.");
+	   long multa=0;long dias=0;
+	   try {
+		   ItemRentado r=itemRentadoDAO.loadItemRentado(iditem);
+		   r.setFechafinrenta(fechaDevolucion);
+		   Date inicio=r.getFechainiciorenta();
+		   Date fin=r.getFechafinrenta();
+		   LocalDate prestado = inicio.toLocalDate();
+		   LocalDate devuelto = fin.toLocalDate();
+		   long diasDeAlquiler= ChronoUnit.DAYS.between(devuelto,prestado);
+		   if(diasDeAlquiler>this.limiteDias) {
+			   dias=diasDeAlquiler-this.limiteDias;
+			   multa=this.multaGeneral*dias;
+		   }
+	   } 
+	   catch (PersistenceException e) {
+		   throw new ExcepcionServiciosAlquiler("Error al calcular la multa",e);
+	   }
+	   return multa;
    }
 
+   
    @Override
    public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
 	   try {
@@ -132,16 +163,32 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
    @Override
    public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
-        LocalDate ld=date.toLocalDate();
-        LocalDate ld2=ld.plusDays(numdias);
-        int rentados = consultarCliente(docu).getRentados().size();
-        ItemRentado ir=new ItemRentado(rentados+1,item,date,java.sql.Date.valueOf(ld2));
-        try {
-            clienteDAO.addItemCliente(docu, ir.getId(), java.sql.Date.valueOf(ld), java.sql.Date.valueOf(ld2));
-        }
-        catch (PersistenceException ex) {
-                throw new ExcepcionServiciosAlquiler("Error al registrar alquiler.",ex);
-        }
+	   
+	   SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	   
+	   String fechaInicioS=formatter.format(date);
+	   
+	   java.util.Date fechaInicio;
+	   
+	   try {
+		   fechaInicio = formatter.parse(fechaInicioS);
+		   Calendar calendar=Calendar.getInstance();
+		   calendar.setTime(fechaInicio);
+		   calendar.add(Calendar.DAY_OF_YEAR, numdias);
+		   	
+		   java.util.Date fechaFin=calendar.getTime();
+		   
+		   int id_item=item.getId();
+		   itemRentadoDAO.addItemRentado(docu,id_item,fechaInicio, fechaFin);
+	   } 
+	   
+	   catch (PersistenceException ex) {
+           throw new ExcepcionServiciosAlquiler("Error al registrar alquiler",ex);
+	   }
+	   
+	   catch (ParseException e) {
+			e.printStackTrace();
+	   }
    }
 
    @Override
@@ -156,12 +203,23 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
    @Override
    public long consultarCostoAlquiler(int iditem, int numdias) throws ExcepcionServiciosAlquiler {
+	   long valor=0;
 	   try {
-		   return itemDAO.consultarCostoAlquiler(iditem, numdias);
+		   int diasExtra=0;
+		   if(numdias>this.limiteDias) {
+			   diasExtra=numdias-this.limiteDias;
+			   valor=itemDAO.consultarCostoAlquiler(iditem,this.limiteDias);
+			   valor+=itemDAO.consultarCostoAlquiler(iditem,diasExtra);
+		   }
+		   else {
+			   valor=itemDAO.consultarCostoAlquiler(iditem,numdias);
+		   }
+
 	   }
 	   catch (PersistenceException e) {
 		   throw new ExcepcionServiciosAlquiler("Error al calcular la tarifa",e);
 	   }
+	   return valor;
    }
 
    @Override
@@ -192,4 +250,8 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 		   throw new ExcepcionServiciosAlquiler("Error al registar el Item",e);
 	   }
    }
+  
+
 }
+
+

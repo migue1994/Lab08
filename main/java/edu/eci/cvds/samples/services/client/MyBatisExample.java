@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.ibatis.io.Resources;
@@ -38,6 +39,7 @@ import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisClienteDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.Item;
@@ -88,6 +90,7 @@ public class MyBatisExample {
         
     	
     	ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+    	
     	//Cliente c=new Cliente("natalia",12345,"54321","cll", "n@gmail.com");
     	//cm.insertarCliente(c);
     	//cm.actualizarClienteVetado(2148825, true);
@@ -95,10 +98,11 @@ public class MyBatisExample {
     
     	/*System.out.println(cm.consultarClientes());
     	System.out.println(cm.consultarCliente(2107356));*/
+    	
     	/*try {
     		Date dateI = formatter.parse(dateInicio);
     		Date dateF = formatter.parse(dateFin);
-    		cm.agregarItemRentadoACliente(1024, 2148825,5,dateI,dateF);
+    		cm.agregarItemRentadoACliente(12345, 214,dateI,dateF);
     	}
     	
     	catch (ParseException e) {
@@ -106,7 +110,7 @@ public class MyBatisExample {
         }*/
     	
     	ItemMapper itm=sqlss.getMapper(ItemMapper.class);
-    	//System.out.println(itm.consultarItemsDisponibles());
+    	System.out.println(itm.consultarItemsDisponibles());
     	//System.out.println(itm.consultarTipoItem(19));
     	//itm.actualizarTarifa(19, 14785217);
     	
@@ -126,17 +130,41 @@ public class MyBatisExample {
         }*/
     	
 
-    	/*TipoItemMapper titm=sqlss.getMapper(TipoItemMapper.class);
-    	System.out.println(titm.getTiposItems());
+    	TipoItemMapper titm=sqlss.getMapper(TipoItemMapper.class);
+    	/*System.out.println(titm.getTiposItems());
     	System.out.println(titm.getTipoItem(1));*/
     	/*titm.addTipoItem("Peliculas");*/
     	
-     
-        sqlss.commit();
-        
-        
+    	ItemRentadoMapper tirm=sqlss.getMapper(ItemRentadoMapper.class);
+    	
+    	//System.out.println(tirm.consultarItemRentado(1));
+    	/*try {
+    		Date dateI = formatter.parse(dateInicio);
+    		Date dateF = formatter.parse(dateFin);
+    		tirm.agregarItemRentadoACliente(1,214,dateI,dateF);
+    	}
+    	
+    	catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+    	
+    	/*Date fecha=new Date();int dias=20;
+    	System.out.println(formatter.format(fecha));
+    	
+    	Calendar calendar=Calendar.getInstance();
+    	calendar.setTime(fecha);
+    	calendar.add(Calendar.DAY_OF_YEAR, dias);
+    	Date fecha2=calendar.getTime();
+    	System.out.println(formatter.format(fecha2));*/
+    	
+		/*java.util.Date fechaInicio=new java.util.Date();
+		
+		java.sql.Date fechaInicioSQL=new java.sql.Date(fechaInicio.getTime());
+		String s=formatter.format(fechaInicioSQL);
+		System.out.println(s);*/
+    	
+    	sqlss.commit();
         sqlss.close();
-
         
         
     }

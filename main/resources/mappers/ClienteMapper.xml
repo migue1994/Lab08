@@ -73,13 +73,7 @@
         	
         	WHERE c.documento= #{id_cliente}
     </select>
-    
-    
-    <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
-    	insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) 
-    	VALUES (#{id_itemRentado},#{id_cliente},#{id_item},#{fechainiciorenta},#{fechafinrenta})
-    </insert>
-
+  
 	
 	<update parameterType="Cliente" id="actualizarClienteVetado">
 	

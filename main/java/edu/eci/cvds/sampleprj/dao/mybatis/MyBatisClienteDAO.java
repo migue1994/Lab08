@@ -23,16 +23,6 @@ public class MyBatisClienteDAO implements ClienteDAO{
 		else return c;       
 	}
 	  
-	@Override
-	public void addItemRentado(int id, int idC,int idit, Date fechainicio,Date fechafin) throws PersistenceException{
-		try{
-			clienteMapper.agregarItemRentadoACliente(id, idC, idit, fechainicio, fechafin);
-		}
-		catch(org.apache.ibatis.exceptions.PersistenceException e) {
-			throw new PersistenceException("Error al agregar el Item Rentado", e);
-		}        
-
-	}
 
 	@Override
 	public List<Cliente> loadAll() throws PersistenceException{

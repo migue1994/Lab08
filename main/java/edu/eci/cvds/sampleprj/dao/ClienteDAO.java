@@ -15,9 +15,6 @@ public interface ClienteDAO {
 	
 	public Cliente load(long id) throws PersistenceException;
 	
-	@Transactional
-	public void addItemRentado(int id, int idC,int idit, Date fechainicio,Date fechafin) throws PersistenceException;
-
 	public List<Cliente> loadAll() throws PersistenceException;
 
 	

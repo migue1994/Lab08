@@ -16,17 +16,7 @@ public interface ClienteMapper {
     
     public Cliente consultarCliente(@Param("id_cliente")long id); 
     
-    /**
-     * Registrar un nuevo item rentado asociado al cliente identificado
-     * con 'idc' y relacionado con el item identificado con 'idi'
-     * @param id
-     * @param idit
-     * @param fechainicio
-     * @param fechafin 
-     */
-    public void agregarItemRentadoACliente(@Param("id_itemRentado")int id, @Param("id_cliente")int idC,
-    		@Param("id_item") int idit, @Param("fechainiciorenta")Date fechainicio,@Param("fechafinrenta")Date fechafin);
-
+    
     /**
      * Consultar todos los clientes
      * @return 

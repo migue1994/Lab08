@@ -13,31 +13,104 @@
     		ir.fechafinrenta ,
     
     		i.id as id_item,
-    		i.nombre as nombre_item
-		
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+      		
         
     		FROM 
     		VI_CLIENTES as c
     		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
     		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
     		
-
 			where
 				c.documento= #{id_cliente} 
 	</select>
 	
 	<select id="consultarDiasAlquiler" resultType="int">
 		select
-    		DATEDIFF(ir.fechainiciorenta,ir.fechafinrenta)
+		
+    		DATEDIFF(ir.fechafinrenta,ir.fechainiciorenta)
 
     		FROM 
     		VI_CLIENTES as c
     		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
-    		
 
 			where
 				ir.id= #{id_item} 
+				
 	</select>
+	
+	<select parameterType="map" id="consultarItemsRentados" resultMap="itemRentadoResult">
+		select
+			ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+        
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+		
+			where
+				i.id= #{id_item} 
+				
+	</select>
+	
+	<select parameterType="map" id="consultarItemRentado" resultMap="itemRentadoResult">
+		select
+			ir.id as id_itemRentado,
+    		ir.fechainiciorenta ,
+    		ir.fechafinrenta ,
+    
+    		i.id as id_item,
+    		i.nombre as nombre_item,
+    		i.descripcion as descripcion_item,
+    		i.fechalanzamiento ,
+    		i.tarifaxdia ,
+    		i.formatorenta ,
+    		i.genero ,     
+    		   
+    		ti.id as id_tipoItem,
+    		ti.descripcion  as descripcion_tipoItem
+        
+    		FROM 
+    		VI_CLIENTES as c
+    		left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    		left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    		left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+		
+			where
+				ir.id= #{id_item} 
+				
+	</select>
+	
+	<insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="id_itemRentado">
+    	<selectKey keyProperty="id_itemRentado" resultType="int" order="BEFORE">
+			select MAX(id)+1 from VI_ITEMRENTADO
+		</selectKey>
+    	insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) 
+    	VALUES (#{id_itemRentado},#{id_cliente},#{id_item},#{fechainiciorenta},#{fechafinrenta})
+    </insert>
 	
 	
 	<resultMap id="itemRentadoResult" type="ItemRentado">

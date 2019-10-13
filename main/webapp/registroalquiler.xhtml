@@ -18,7 +18,10 @@
             <section>
                 <div style="text-align: center" class='table'>
                 
-                    <p:dataTable value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;">
+                    <p:dataTable value="#{AlquilerBean.listaRentados}" var = "itemRentado" style="margin: 0 auto;"
+                    rows="10" paginator="true" 
+    				paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+    				rowsPerPageTemplate="5,10,15">
     				
     					<p:column headerText="Id" filterBy="#{itemRentado.id}">
                         	<h:outputText value="#{itemRentado.id}"></h:outputText>
@@ -30,37 +33,49 @@
 
                         <p:column headerText="Fin de Renta" filterBy="#{itemRentado.fechafinrenta}">
                         	<h:outputText value="#{itemRentado.fechafinrenta}"></h:outputText>
-                        </p:column>
+                        </p:column>       
                         
-                        <p:column headerText="Valor Multa" filterBy="#{AlquilerBean.calcularMulta(itemRentado.fechainiciorenta,itemRentado.fechafinrenta)}">
-                        	<h:outputText value="#{AlquilerBean.calcularMulta(itemRentado.fechainiciorenta,itemRentado.fechafinrenta)}"></h:outputText>
-                        </p:column>
+                        <p:column headerText="Valor Multa" filterBy="#{AlquilerBean.actionGetMulta(itemRentado.id,itemRentado.fechafinrenta)}">
+                        	<h:outputText value="#{AlquilerBean.actionGetMulta(itemRentado.id,itemRentado.fechafinrenta)}"></h:outputText>
+                        </p:column>   
 
                     </p:dataTable>
                 </div>  
               
             </section>
-
-            <p:outputLabel style="font-size: 25px"><strong>Alquilar</strong></p:outputLabel>
-            <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
-                <p:outputLabel value ="IDItem"/>
-                <p:inputText id = "imput_id" value="#{AlquilerBean.id_item}"/>
-
-                <p:outputLabel value="Dias"/>
-                <p:inputText id="numdias" value="#{AlquilerBean.numdias}"/>
-                <br/>
-
-                <p:commandButton value="Calcular costo" action="#{AlquilerBean.calcularCosto()}" update="registroAlquiler_form"/>
-                <p:outputLabel value="Total"/>
-                <p:outputLabel value="#{AlquilerBean.costo}"/>
-            </h:panelGrid>
+			
+			<br/>
 			
 			<section>
-				<br/>
 				<div style="text-align: center">
-					<p:commandButton id= "submit" value="Submit" action="#{AlquilerItemsBean.page1}">
-                        <f:actionListener binding="#{AlquilerBean.registrarAlquilerCliente()}"/>
-                    </p:commandButton>
+            	
+	            	<div >
+	            		<span class="label idItem">Item </span>
+	    				<p:inputText id ="idItem" value="#{AlquilerBean.idItem}" placeholder="Introduce el id del item" class="form-control"/>
+					</div>
+						
+					<br/>
+					
+					<div class="form-group">
+    					<span class="label numdias">D&#237;as </span>
+    					<p:inputText id ="numdias" value="#{AlquilerBean.numdias}" placeholder="Introduce el número de días" class="form-control"/>
+					</div>
+					
+					<br/>
+					
+					<div>
+    					<p:commandButton value="Costo" action="#{AlquilerBean.actionSetCosto}" update="registroAlquiler_form"/>
+						<br/>
+						<h:outputText value="#{AlquilerBean.costo}"></h:outputText>
+					</div>
+					
+					<br/>
+					
+					<div style="text-align: center">
+						<p:commandButton id= "submit" value="Submit" action="#{AlquilerItemsBean.page1}" actionListener="#{AlquilerBean.registrarAlquilerCliente}" update="registroAlquiler_form"></p:commandButton>
+					</div>
+					
+				
 				</div>
 			
 			</section>

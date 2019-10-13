@@ -32,13 +32,13 @@ public class MyBatisItemDAO implements ItemDAO{
   @Override
   public Item load(int id) throws PersistenceException {
 	  try{
+		  Item i=itemMapper.consultarItem(id);
+		  if(i==null) throw new org.apache.ibatis.exceptions.PersistenceException();
 		  return itemMapper.consultarItem(id);
 	  }
 	  catch(org.apache.ibatis.exceptions.PersistenceException e){
-	      throw new PersistenceException("Error al consultar el item "+ Integer.toString(id) ,e);
+	      throw new PersistenceException("El item "+ Integer.toString(id) +" no encontrado",e);
 	  }
-
-
   }
   
   @Override
@@ -71,6 +71,19 @@ public class MyBatisItemDAO implements ItemDAO{
 		      throw new PersistenceException("Error al consultar el tipo de item");
 		  }
 	}
+	/**
+	 * long valor=0;
+	   try {
+		   Item i=consultarItem(id_item); 
+		   long tarifa=i.getTarifaxDia();
+		   int dias_extra=numdias-this.limiteDias;
+		   valor=tarifa*this.limiteDias+this.multaGeneral*dias_extra;
+	   } 
+	   catch (ExcepcionServiciosAlquiler e) {
+		   throw new ExcepcionServiciosAlquiler("Error al encontrar el item",e);
+	   }
+	   return valor;
+	 */
 
 	@Override
 	public long consultarCostoAlquiler(int iditem,int numdias) throws PersistenceException {

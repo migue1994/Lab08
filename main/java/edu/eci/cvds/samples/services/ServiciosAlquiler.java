@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
 
 public interface ServiciosAlquiler {
 
-   public int valorMultaRetrasoxDia(int itemId);
+   public int valorMultaRetrasoxDia(int itemId) throws ExcepcionServiciosAlquiler;
 
    public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler;
 
@@ -85,5 +85,6 @@ public interface ServiciosAlquiler {
    public void registrarItem(Item i) throws ExcepcionServiciosAlquiler;
 
    public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler;
+
 
 }
