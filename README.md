@@ -177,3 +177,7 @@ En este laboratorio se utilizará un 'framework' de persistencia. La base de dat
 	```
 	
 	Verifique el funcionamiento haciendo una consulta a través del 'mapper' desde MyBatisExample.
+
+
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/75abf73b0f0d4ec18405681ece584ece)](https://www.codacy.com/manual/nduran06/Lab08?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=migue1994/Lab08&amp;utm_campaign=Badge_Grade)
