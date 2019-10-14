@@ -76,14 +76,20 @@ public class RegistroAlquilerView {
 		return getMulta();
 	}
 	
+	private void itemNoExistente() {
+		this.estado="No existe";
+	}
+	
 	public void actionSetCosto() {
 		try {
 			setCosto(serviciosAlquiler.consultarCostoAlquiler(idItem, numdias));
 			actionEstadoItem();
 		}
-		catch (ExcepcionServiciosAlquiler e) {
+		catch (Exception e) {
+			itemNoExistente();
 			e.printStackTrace();
 		}
+		
 	}
 	private boolean buscarItem(List<Item>li,int it) {
 		boolean b=false;
@@ -113,8 +119,8 @@ public class RegistroAlquilerView {
 			else {
 				this.estado="No disponible";
 			}
-		} catch (ExcepcionServiciosAlquiler e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
+			itemNoExistente();
 			e.printStackTrace();
 		}
 		
@@ -136,7 +142,8 @@ public class RegistroAlquilerView {
 			
 			
 		}
-		catch(ExcepcionServiciosAlquiler e){
+		catch(Exception e){
+			itemNoExistente();
 			e.printStackTrace();
 		}
 	}
